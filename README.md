@@ -1,22 +1,20 @@
-# Kubernetes bootcame
+# Kubernetes bootcamp
 
 ### Prerequisites
+
     1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
     2. An NFS server and export configured to use as storage for your Kubernetes podes
 
 ### Basic cluster setup
 
-
-**Note: AWS calls some types of firewalls “security groups” because a firewall policy can be applied to multiple devices the same way multiple users can share the same group.**
-
 1. Configure name resolution for so each cluster member can reach the others by edit hosts file to include name and IP of each cluster member
     
     ```nano /etc/hosts```
 
+2. Install microk8s on first cluster member (see https://microk8s.io/docs/getting-started):
 
-2) Configure name resolution for so each cluster member can reach the others by edit hosts file to include name and IP of each cluster member
+    ```sudo snap install microk8s --classic```
 
-   nano /etc/hosts 
 
 3) Install microk8s on first cluster member (see https://microk8s.io/docs/getting-started):
 
