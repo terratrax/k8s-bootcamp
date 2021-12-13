@@ -3,28 +3,44 @@
 ### Prerequisites
 
 1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
-2. An NFS server and export configured to use as storage for your Kubernetes podes
+2. An NFS server and export configured to use as storage for your Kubernetes podes, preferably on a seperate machine.  There are many guides on the internet for this, including this one: https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04
 
 ### Basic cluster setup
+
+***On ONE of your cluster members, perform the following:***
 
 1. Configure name resolution for so each cluster member can reach the others by edit hosts file to include name and IP of each cluster member
     
     ```nano /etc/hosts```
 
-2. Install microk8s on first cluster member (see https://microk8s.io/docs/getting-started):
+2. Install microk8s on first cluster member (see ):
 
     ```sudo snap install microk8s --classic```
 
+3. Add your user to the microk8s group so you dont have to sudo for everything and take ownership of the kubectl configuration file:
 
-3) Install microk8s on first cluster member (see https://microk8s.io/docs/getting-started):
+    ```sudo usermod -a -G microk8s <YOUR USER NAME>```
+    ```sudo chown -f -R <YOUR USER NAME> ~/.kube```
 
-   sudo snap install microk8s --classic
+4. Make your life easier by aliasing the "microk8s kubectl" and "microk8s helm3" commands to the more standard "kubectl" and "helm":
 
-4) Add your user to the microk8s group so you dont have to sudo for everything:
-   sudo usemod -a -G microk8s <YOUR USER NAME>
-   sudo chown -f -R <YOUR USER NAME> ~/.kube
-  
-4) Add your user to the microk8s group
+    ```nano .bashrc```
+
+    Add ```kubectl='microk8s kubectl'``` and ```helm='microk8s helm3'``` to the bottom of the file
+
+5. Logout or disconnect your SSH session and log back in to load the aliases and group membership you just configured.
+
+6. Enable helm (meta-package manager for Kubernetes).  Helm is like apt or yum, but for Kubernetes - it makes your life easier but its good to understand what is happening under the covers as well.
+   
+    ```microk8s enable helm3```
+
+ ***See https://microk8s.io/docs/getting-started for more information***
+
+ ### Add additional cluster members (optional)
+
+
+
+ ###
 
 4) Enable helm (meta-package manager for Kubernetes).  Helm is like apt or yum, but for Kubernetes - it makes your life easier but its good to understand what is happening under the covers as well.
    microk8s enable helm
