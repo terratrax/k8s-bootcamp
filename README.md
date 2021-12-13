@@ -2,8 +2,8 @@
 
 ### Prerequisites
 
-    1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
-    2. An NFS server and export configured to use as storage for your Kubernetes podes
+1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
+2. An NFS server and export configured to use as storage for your Kubernetes podes
 
 ### Basic cluster setup
 
