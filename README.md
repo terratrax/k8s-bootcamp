@@ -5,7 +5,7 @@
 1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
 2. An NFS server and export configured to use as storage for your Kubernetes podes, preferably on a seperate machine.  There are many guides on the internet for this, including this one: https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04
 
-### Basic cluster setup
+### Basic node setup
 
 ***On ONE of your cluster members, perform the following:***
 
@@ -30,22 +30,41 @@
 
 5. Logout or disconnect your SSH session and log back in to load the aliases and group membership you just configured.
 
-6. Enable helm (meta-package manager for Kubernetes).  Helm is like apt or yum, but for Kubernetes - it makes your life easier but its good to understand what is happening under the covers as well.
-   
-    ```microk8s enable helm3```
-
  ***See https://microk8s.io/docs/getting-started for more information***
 
- ### Add additional cluster members (optional)
+### Add additional cluster members (optional)
 
+1. Repeat the basic node setup steps on the node you wish to join to the cluster
 
+2. On the first node you configured (we will call this the "master node"), enter the following:
 
- ###
+    ```microk8s add-node```
 
-4) Enable helm (meta-package manager for Kubernetes).  Helm is like apt or yum, but for Kubernetes - it makes your life easier but its good to understand what is happening under the covers as well.
-   microk8s enable helm
+    Copy the command/output provided
 
-5) Create
+3. Run the command from the above step on the node you wish to join to the cluster
 
-5) Set up NFS storage on the cluster.  This will allow for pods (containers or groups of containers) to move between the nodes in your cluster seamlessly while keeping access to the same storage.  We will use helm for this:
+***Note: You can repeat these steps for as many nodes as you would like to join***
+
+### Enable helm (meta-package manager for Kubernetes)
+
+***Helm is like apt or yum, but for Kubernetes - it makes your life easier but its good to understand what is happening under the covers as well.***
+   
+1. From the master node, enable helm:
+
+    ```microk8s enable helm3```
+
+### Configure the NFS storage provider
+
+***This will allow for pods (containers or groups of containers) to move between the nodes in your cluster seamlessly while keeping access to the same storage.***
+
+1. Use helm to easily configure the NFS storage and set it as the default for pods to use:
+   
+    ```
+    $ helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+    $ helm install nfs-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+        --set nfs.server=<YOUR NFS SERVER IP> \
+        --set nfs.path=/exported/path
+        --set storageClass.defaultClass=true
+    ```
    
