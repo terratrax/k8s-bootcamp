@@ -116,4 +116,8 @@
 
     ```kubectl apply -f service-helloworld.yaml```
 
-### Connect to the container and add static content
+### Add content to your web server and test
+
+1. On your NFS server, add static content to the root directory of the folder the NFS provisioner created.  A file called "index.html" with "Hello world" in it will suffice!
+
+2. From your local network, browse to http://<ANY NODE IP ADDRESS>:81080
