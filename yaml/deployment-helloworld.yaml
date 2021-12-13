@@ -17,7 +17,7 @@ spec:
         app.kubernetes.io/name: helloworld
     spec:
       containers:
-      - image: nginx/nginx:latest
+      - image: nginx:latest
         imagePullPolicy: Always
         name: helloworld
         ports:

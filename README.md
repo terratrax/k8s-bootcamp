@@ -13,6 +13,10 @@
     
     ```sudo nano /etc/hosts```
 
+2. Install NFS
+
+    ```sudo apt install nfs-common```
+
 2. Install microk8s on first cluster member (see ):
 
     ```sudo snap install microk8s --classic```
@@ -80,9 +84,25 @@
 
 ### Configure storage for your webserver
 
-### Deploy a "hello world" webserver
-
 1. Clone the lab respository
 
     ```git clone https://github.com/terratrax/k8s-bootcamp```
+
+2. Change directory into the yaml folder
+
+    ```cd k8s-bootcamp/yaml```
+
+3. Inspect the pvc-helloworld.yaml file to see that it creates a volume claim, which in turn will will be mapped to a new folder on your NFS server.
+
+4. Create the volume claim:
+
+    ```kubectl apply -f pvc-helloworld.yaml```
+
+4. Take note of the folder created on your NFS server
+
+### Deploy a "hello world" webserver
+
+1. Inspect the 
+
+
 
