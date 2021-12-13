@@ -117,8 +117,28 @@
 
     ```kubectl apply -f service-helloworld.yaml```
 
+3. View your the services running:
+
+    ```kubectl get svc```
+
+4. Note the mapping between port 80 on your container and port 31080 on the node (virtual machine)
+
 ### Add content to your web server and test
 
-1. On your NFS server, add static content to the root directory of the folder the NFS provisioner created.  A file called "index.html" with "Hello world" in it will suffice!
+1. On your NFS server, add static content to the root directory of the folder the NFS provisioner created.  A file called "index.html" with "Hello world" in it will suffice!  Alternatively, you can create the content from within the container (see below)
 
-2. From your local network, browse to http://<ANY NODE IP ADDRESS>:81080
+2. From your local network, browse to http://<ANY NODE IP ADDRESS>:31080
+
+***Note: Regardless of what node (VM) the container is running on, it is reachable from all nodes on port 31080***
+
+### Things to try
+
+1. Drop into a bash shell on the container:
+
+    Find the name of the running container with ```kubectl get pods```
+
+    Drop into a bash shell with ```kubectl exec -it <CONTAINER NAME> -- bash```
+
+2. Create a basic static web page: ```echo "HELLO WORLD" > /usr/share/nginx/html/index.html``` Note: You'll see the file just created on your NFS server!'
+
+3. Scale the application to more than one pod by increasing the spec.replicas value in the deployment-helloworld.yaml file.
