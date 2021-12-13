@@ -102,7 +102,18 @@
 
 ### Deploy a "hello world" webserver
 
-1. Inspect the 
+1. Inspect the deployment-helloworld.yaml file to see that it creates a container running the nginx web server and mounts the NFS volume to the document root
 
+2. Apply the helloworld deployment:
 
+    ```kubectl apply -f deployment-helloworld.yaml```
 
+### Expose the webserver via NodePort
+
+1. Inspect the service-helloworld.yaml file to see that it maps port 80 on the container to port 31080 on the nodes.  Kubernetes will automatically map that port on ANY node to port 80 on the node(s) running the application.
+
+2. Apply the service:
+
+    ```kubectl apply -f service-helloworld.yaml```
+
+### Connect to the container and add static content
