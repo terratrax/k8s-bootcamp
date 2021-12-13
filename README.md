@@ -24,6 +24,7 @@
 3. Add your user to the microk8s group so you dont have to sudo for everything and take ownership of the kubectl configuration file:
 
     ```sudo usermod -a -G microk8s <YOUR USER NAME>```
+
     ```sudo chown -f -R <YOUR USER NAME> ~/.kube```
 
 4. Make your life easier by aliasing the "microk8s kubectl" and "microk8s helm3" commands to the more standard "kubectl" and "helm":
