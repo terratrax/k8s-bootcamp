@@ -119,7 +119,7 @@ This lab will walk you through creating a basic microk8s cluster on Ubuntu 20.04
 
     ```kubectl apply -f service-helloworld.yaml```
 
-3. View your the services running:
+3. View the services running on your cluster:
 
     ```kubectl get svc```
 
