@@ -11,7 +11,7 @@
 
 1. Configure name resolution for so each cluster member can reach the others by edit hosts file to include name and IP of each cluster member
     
-    ```nano /etc/hosts```
+    ```sudo nano /etc/hosts```
 
 2. Install microk8s on first cluster member (see ):
 
@@ -26,7 +26,7 @@
 
     ```nano .bashrc```
 
-    Add ```kubectl='microk8s kubectl'``` and ```helm='microk8s helm3'``` to the bottom of the file
+    Add ```alias kubectl='microk8s kubectl'``` and ```alias helm='microk8s helm3'``` to the bottom of the file (as seperate lines)
 
 5. Logout or disconnect your SSH session and log back in to load the aliases and group membership you just configured.
 
@@ -44,6 +44,10 @@
 
 3. Run the command from the above step on the node you wish to join to the cluster
 
+4. Verify that the node shows up from the master node:
+
+    ```kubectl get nodes```
+
 ***Note: You can repeat these steps for as many nodes as you would like to join***
 
 ### Enable helm (meta-package manager for Kubernetes)
@@ -54,17 +58,31 @@
 
     ```microk8s enable helm3```
 
-### Configure the NFS storage provider
+### Configure the NFS persistent storage provider
 
 ***This will allow for pods (containers or groups of containers) to move between the nodes in your cluster seamlessly while keeping access to the same storage.***
 
-1. Use helm to easily configure the NFS storage and set it as the default for pods to use:
+***On the master node:***
+
+1. Use helm to easily configure the NFS persistent storage and set it as the default for pods to use:
    
     ```
     $ helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     $ helm install nfs-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
         --set nfs.server=<YOUR NFS SERVER IP> \
-        --set nfs.path=/exported/path
+        --set nfs.path=/exported/path \
         --set storageClass.defaultClass=true
     ```
    
+2. Verify that the 'nfs-client' storage class shows up:
+
+    ```kubectl get storageclass```
+
+### Configure storage for your webserver
+
+### Deploy a "hello world" webserver
+
+1. Clone the lab respository
+
+    ```git clone https://github.com/terratrax/k8s-bootcamp```
+
