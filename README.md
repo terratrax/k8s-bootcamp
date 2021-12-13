@@ -1,5 +1,7 @@
 # Kubernetes bootcamp
 
+This lab will walk you through creating a basic microk8s cluster on Ubuntu 20.04, configuring a dynamic NFS storage provider, and creating and exposing a static web server.
+
 ### Prerequisites
 
 1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
