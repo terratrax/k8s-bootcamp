@@ -4,7 +4,7 @@ This lab will walk you through creating a basic microk8s cluster on Ubuntu 20.04
 
 ### Prerequisites
 
-1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (sudo apt update && sudo apt upgrade)
+1. At least one kubernetes node running Ubuntu 20.04 LTS, updated fully (```sudo apt update && sudo apt upgrade```)
 2. An NFS server and export configured to use as storage for your Kubernetes podes, preferably on a seperate machine.  There are many guides on the internet for this, including this one: https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04
 
 ### Basic node setup
